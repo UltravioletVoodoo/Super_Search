@@ -12,12 +12,16 @@ export default function SearchResult(props) {
 
     function parseTypes(typesArray) {
         let result = '';
-        for (let type of typesArray) {
-            if (result.length > 0) {
-                result += `, ${capitalize(wordTypes[type])}`;
-            } else {
-                result = capitalize(wordTypes[type]);
+        if (typesArray != null) {
+            for (let type of typesArray) {
+                if (result.length > 0) {
+                    result += `, ${capitalize(wordTypes[type])}`;
+                } else {
+                    result = capitalize(wordTypes[type]);
+                }
             }
+        } else {
+            result = 'Unknown'
         }
         return result;
     }
