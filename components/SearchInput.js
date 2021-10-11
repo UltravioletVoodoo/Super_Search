@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import arrayContains from '../util/arrayContains';
 
 export default function SearchInput(props) {
     const { setter } = props;
+
+    const numResults = 5;
 
     const [searchOjbect, setSearchObject] = useState({
         noun: false,
         verb: false,
         adjective: false,
         adverb: false,
-        syllables: 1,
+        syllables: 2,
         startsWith: "",
         endsWith: "",
         rymesWith: "",
@@ -16,7 +19,7 @@ export default function SearchInput(props) {
     })
 
     function generateAPICall() {
-        let result = 'https://api.datamuse.com/words?md=dsp&max=5';
+        let result = 'https://api.datamuse.com/words?md=dsp&max=900';
         if (searchOjbect.startsWith.length > 0) {
             if (searchOjbect.endsWith.length > 0) {
                 result += `&sp=${searchOjbect.startsWith}*${searchOjbect.endsWith}`
@@ -35,13 +38,33 @@ export default function SearchInput(props) {
         }
         return result;
     }
+
+    function stripData(dataWords) {
+        let strippedData = [];
+        for (let dataWord of dataWords) {
+            if (strippedData.length >= numResults) break;
+            if (!searchOjbect.noun && arrayContains(dataWord.tags, 'n')) continue;
+            if (!searchOjbect.verb && arrayContains(dataWord.tags, 'v')) continue;
+            if (!searchOjbect.adjective && arrayContains(dataWord.tags, 'adj')) continue;
+            if (!searchOjbect.adverb && arrayContains(dataWord.tags, 'adv')) continue;
+            if (searchOjbect.syllables != dataWord.numSyllables) continue;
+            strippedData.push(dataWord);
+        }
+        return strippedData;
+    }
     
     function getSearchResults() {
         var request = new XMLHttpRequest()
         request.open('GET', generateAPICall(), true)
         request.onload = function () {
             // Begin accessing JSON data here
-            setter(JSON.parse(request.response));
+            const APIResponse = JSON.parse(request.response);
+            if (APIResponse != null) {
+                setter(stripData(JSON.parse(request.response)));
+            } else {
+                console.log("No data");
+            }
+
         }
         request.send()
     }
