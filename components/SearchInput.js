@@ -11,6 +11,7 @@ export default function SearchInput(props) {
         verb: false,
         adjective: false,
         adverb: false,
+        useSyllables: false,
         syllables: 2,
         startsWith: "",
         endsWith: "",
@@ -47,7 +48,9 @@ export default function SearchInput(props) {
             if (!searchOjbect.verb && arrayContains(dataWord.tags, 'v')) continue;
             if (!searchOjbect.adjective && arrayContains(dataWord.tags, 'adj')) continue;
             if (!searchOjbect.adverb && arrayContains(dataWord.tags, 'adv')) continue;
-            if (searchOjbect.syllables != dataWord.numSyllables) continue;
+            if (searchOjbect.useSyllables) {
+                if (searchOjbect.syllables != dataWord.numSyllables) continue;
+            }
             strippedData.push(dataWord);
         }
         return strippedData;
@@ -90,6 +93,12 @@ export default function SearchInput(props) {
     function handleAdverbChange() {
         let result = {... searchOjbect};
         result.adverb = !result.adverb;
+        setSearchObject(result);
+    }
+
+    function handleUseSyllablesChange() {
+        let result = {... searchOjbect};
+        result.useSyllables = !result.useSyllables;
         setSearchObject(result);
     }
 
@@ -144,7 +153,10 @@ export default function SearchInput(props) {
             </div>
             <div>
                 <label htmlFor="syllable">Syllables: </label>
-                <input type="number" id="syllables" value={searchOjbect.syllables} onChange={handleSyllablesChange}></input>
+                <input type="checkbox" id="useSyllables" value={searchOjbect.useSyllables} onChange={handleUseSyllablesChange}></input>
+                {searchOjbect.useSyllables && (
+                    <input type="number" id="syllables" value={searchOjbect.syllables} onChange={handleSyllablesChange}></input>
+                )}
             </div>
             <div>
                 <label htmlFor="startsWith">Starts with: </label>
