@@ -10,9 +10,21 @@ export default function Index() {
   return (
     <>
       <Base />
-      <h1>Super Search</h1>
+      <h1 className="title">Super Search</h1>
+      <span className="babylove">secret baby edition</span>
       <SearchInput setter={setSearchResults} />
       <SearchResults searchResults={searchResults} />
+      <style jsx>{`
+      .title {
+        display: inline-block;
+      }
+      .babylove {
+        padding-left: 10px;
+        font-size: 14px;
+        color: lightgray;
+        display: inline-block;
+      }
+      `}</style>
     </>
   )
 }
