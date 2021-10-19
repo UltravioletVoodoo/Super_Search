@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import arrayContains from '../util/arrayContains';
+import { phoneSize, tabletSize } from '../util/globalContants';
 
 export default function SearchInput(props) {
     const { setter } = props;
@@ -139,51 +140,60 @@ export default function SearchInput(props) {
 
     return (
         <>
-            <p>Search area</p>
-            <div>
-                <label htmlFor="noun">Nouns</label>
-                <input type="checkbox" id="noun" value={searchObject.noun} onChange={handleNounChange}></input>
+            <div className="inputContainer">
+                <div>
+                    <label htmlFor="noun">Nouns</label>
+                    <input type="checkbox" id="noun" value={searchObject.noun} onChange={handleNounChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="verb">Verbs</label>
+                    <input type="checkbox" id="verb" value={searchObject.verb} onChange={handleVerbChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="adjective">Adjectives</label>
+                    <input type="checkbox" id="adjective" value={searchObject.adjective} onChange={handleAdjectiveChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="adverb">Adverbs</label>
+                    <input type="checkbox" id="adverbs" value={searchObject.adverb} onChange={handleAdverbChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="syllable">Syllables: </label>
+                    <input type="checkbox" id="useSyllables" value={searchObject.useSyllables} onChange={handleUseSyllablesChange}></input>
+                    {searchObject.useSyllables && (
+                        <input type="number" id="syllables" value={searchObject.syllables} onChange={handleSyllablesChange}></input>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="startsWith">Starts with: </label>
+                    <input type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="endsWith">Ends with: </label>
+                    <input type="text" id="endsWith" value={searchObject.endsWith} onChange={handleEndsWithChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="rymesWith">Rymes with: </label>
+                    <input type="text" id="RymesWith" value={searchObject.rymesWith} onChange={handleRymesWithChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="similarTo">Similar to: </label>
+                    <input type="text" id="similarTo" value={searchObject.similarTo} onChange={handleSimilarToChange}></input>
+                </div>
+                <div>
+                    <label htmlFor="numResults">Number of Results: </label>
+                    <input type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
+                </div>
+                <button onClick={getSearchResults}>Search</button>
             </div>
-            <div>
-                <label htmlFor="verb">Verbs</label>
-                <input type="checkbox" id="verb" value={searchObject.verb} onChange={handleVerbChange}></input>
-            </div>
-            <div>
-                <label htmlFor="adjective">Adjectives</label>
-                <input type="checkbox" id="adjective" value={searchObject.adjective} onChange={handleAdjectiveChange}></input>
-            </div>
-            <div>
-                <label htmlFor="adverb">Adverbs</label>
-                <input type="checkbox" id="adverbs" value={searchObject.adverb} onChange={handleAdverbChange}></input>
-            </div>
-            <div>
-                <label htmlFor="syllable">Syllables: </label>
-                <input type="checkbox" id="useSyllables" value={searchObject.useSyllables} onChange={handleUseSyllablesChange}></input>
-                {searchObject.useSyllables && (
-                    <input type="number" id="syllables" value={searchObject.syllables} onChange={handleSyllablesChange}></input>
-                )}
-            </div>
-            <div>
-                <label htmlFor="startsWith">Starts with: </label>
-                <input type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
-            </div>
-            <div>
-                <label htmlFor="endsWith">Ends with: </label>
-                <input type="text" id="endsWith" value={searchObject.endsWith} onChange={handleEndsWithChange}></input>
-            </div>
-            <div>
-                <label htmlFor="rymesWith">Rymes with: </label>
-                <input type="text" id="RymesWith" value={searchObject.rymesWith} onChange={handleRymesWithChange}></input>
-            </div>
-            <div>
-                <label htmlFor="similarTo">Similar to: </label>
-                <input type="text" id="similarTo" value={searchObject.similarTo} onChange={handleSimilarToChange}></input>
-            </div>
-            <div>
-                <label htmlFor="numResults">Number of Results: </label>
-                <input type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
-            </div>
-            <button onClick={getSearchResults}>Search</button>
+            <style jsx>{`
+                .inputContainer {
+                    position: relative;
+                    width: 100%;
+                    height: 450px;
+                    background-color: #6e5808;
+                }
+            `}</style>
         </>
     )
 }
