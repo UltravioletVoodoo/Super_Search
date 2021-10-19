@@ -13,6 +13,15 @@ export default function SearchResults(props) {
     return (
         <>
             {resultComponents}
+            <div className="resultsContainer"></div>
+            
+            <style jsx>{`
+                .resultsContainer {
+                    background-color: blue;
+                    width: 100%;
+                    height: 100%;
+                }
+            `}</style>
         </>
     )
 }

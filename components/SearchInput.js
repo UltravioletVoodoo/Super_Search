@@ -190,7 +190,7 @@ export default function SearchInput(props) {
                 .inputContainer {
                     position: relative;
                     width: 100%;
-                    height: 450px;
+                    height: 100%;
                     background-color: #6e5808;
                 }
             `}</style>

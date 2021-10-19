@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import SearchInput from '../components/SearchInput';
 import SearchResults from '../components/SearchResults';
 import { phoneSize, tabletSize } from '../util/globalContants';
+import Adslot from '../components/adslot';
 
 export default function Index() {
 
@@ -15,17 +16,33 @@ export default function Index() {
         <h1 className="title">Super Search</h1>
       </div>
       <div className="leftContainer container">
-        <div className="adslot_margin"></div>
+        <Adslot type="vertical" />
       </div>
       <div className="centerContainer container">
-        <div className="searchResults_Container">
+        <div className="searchInputContainer">
           <SearchInput setter={setSearchResults} />
         </div>
       </div>
       <div className="rightContainer container">
-        <div className="adslot_margin"></div>
+        <Adslot type="vertical" />
       </div>
-      <SearchResults searchResults={searchResults} />
+      <div className="lowerContainer">
+        <Adslot type="horizontal" />
+      </div>
+      <div className="leftContainer container">
+        <Adslot type="vertical" />
+      </div>
+      <div className="centerContainer container">
+        <div className="searchResultsContainer">
+          <SearchResults searchResults={searchResults} />
+        </div>
+      </div>
+      <div className="rightContainer container">
+        <Adslot type="vertical" />
+      </div>
+      <div className="lowerContainer">
+        <Adslot type="horizontal" />
+      </div>
       <style jsx>{`
       .titleContainer {
         position: relative;
@@ -39,11 +56,11 @@ export default function Index() {
       .container {
         display: inline-block;
         position: relative;
+        height: 400px;
       }
       .leftContainer {
         width: 20%;
         left: 0;
-        background-color: gray;
       }
       .centerContainer {
         width: 60%;
@@ -51,23 +68,25 @@ export default function Index() {
       .rightContainer {
         width: 20%;
         right: 0;
-        background-color: pink;
       }
-      .adslot_margin {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        display: inline-block;
-        width: 100px;
-        height: 400px;
-        background-color: green;
+      .lowerContainer {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100px;
+        padding: 10px 0 10px 0;
       }
-      .searchResults_Container {
-        display: inline-block;
+      .searchInputContainer {
+        display: block;
         position: absolute;
         width: 100%;
-        left: 50%;
-        transform: translateX(-50%);
+        height: 100%;
+      }
+      .searchResultsContainer {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
       }
       @media only screen and (max-width: ${phoneSize}px) {
         .adslot_margin {
