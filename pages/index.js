@@ -86,7 +86,6 @@ export default function Index() {
         display: block;
         position: absolute;
         width: 100%;
-        height: 100%;
       }
       @media only screen and (max-width: ${phoneSize}px) {
         .adslot_margin {

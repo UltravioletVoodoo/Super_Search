@@ -1,7 +1,22 @@
+import { useRef, useState } from "react";
 import { wordTypes } from "../util/wordTypes";
+import PointingModal from "./pointingModal";
+
+const defaultPosition = {
+    arrow: {
+        left: 0,
+        top: 0
+    },
+    modal: {
+        left: 0,
+        top: 0
+    }
+}
 
 export default function SearchResult(props) {
     const { word } = props
+    const wordRef = useRef(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     console.log(word)
 
@@ -44,37 +59,44 @@ export default function SearchResult(props) {
         return result;
     }
 
+    function toggleModal() {
+        setModalOpen(!modalOpen);
+    }
+
+    function getBackgroundColor() {
+        return "chartreuse";
+    }
+
+    function getBackgroundHoverColor() {
+        return "green";
+    }
+
     return (
         <>
-            <div className='wordWrapper'>
-                <h1 className='word'>{capitalize(word.word)}</h1>
-                <hr className='lineRule'></hr>
-                <p className='wordTypes'>{parseTypes(word.tags)}</p>
-                <p className='definition'>{parseDef(word.defs)}</p>
-            </div>
+            <div ref={wordRef} className="word" onClick={toggleModal}>{capitalize(word.word)}</div>
+            {modalOpen && (
+                <PointingModal 
+                    modalText={parseDef(word.defs)}
+                    reference={wordRef}
+                    closeFunc={setModalOpen}
+                    title={capitalize(word.word)}
+                    quarters={2}
+                />
+            )}
             <style jsx>{`
-                .wordWrapper {
-                    position: relative;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 80%;
-                    margin: 20px 0 20px 0;
-                    padding: 5px;
-                    box-shadow: 0px 0px 25px 10px #838383;
-                    border-radius: 5px;
-                }
                 .word {
-                    padding-bottom: 5px;
+                    display: inline-block;
+                    border: 1px solid black;
+                    border-radius: 10px;
+                    width: fit-content;
+                    padding: 5px;
+                    margin: 5px;
+                    background-color: ${getBackgroundColor()};
+                    cursor: pointer;
+                    transition: 0.2s;
                 }
-                .lineRule {
-                    position: relative;
-                    width: 90%;
-                    left: 50%;
-                    transform: translateX(-56%);
-                }
-                .wordTypes {
-                    font-size: 18px;
-                    color: gray;
+                .word:hover {
+                    background-color: ${getBackgroundHoverColor()};
                 }
             `}</style>
         </>

@@ -32,6 +32,7 @@ export default function SearchInput(props) {
             }
         }
         if (searchObject.rymesWith.length > 0) {
+            // result += `&rel_rhy=${searchObject.rymesWith}&rel_nry=${searchObject.rymesWith}`
             result += `&rel_rhy=${searchObject.rymesWith}`
         }
         if (searchObject.similarTo.length > 0) {
