@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import SearchInput from '../components/SearchInput';
 import SearchResults from '../components/SearchResults';
 import { phoneSize, tabletSize } from '../util/globalContants';
-import Adslot from '../components/adslot';
+import AdslotVertical from '../components/adslot-v';
+import AdslotHorizontal from '../components/adslot-h';
 
 export default function Index() {
 
@@ -16,7 +17,7 @@ export default function Index() {
         <h1 className="title">Super Search</h1>
       </div>
       <div className="leftContainer container">
-        <Adslot type="vertical" />
+        <AdslotVertical />
       </div>
       <div className="centerContainer container">
         <div className="searchInputContainer">
@@ -24,13 +25,13 @@ export default function Index() {
         </div>
       </div>
       <div className="rightContainer container">
-        <Adslot type="vertical" />
+        <AdslotVertical />
       </div>
       <div className="lowerContainer">
-        <Adslot type="horizontal" />
+        <AdslotHorizontal />
       </div>
       <div className="leftContainer container">
-        <Adslot type="vertical" />
+        <AdslotVertical />
       </div>
       <div className="centerContainer container">
         <div className="searchResultsContainer">
@@ -38,10 +39,10 @@ export default function Index() {
         </div>
       </div>
       <div className="rightContainer container">
-        <Adslot type="vertical" />
+        <AdslotVertical />
       </div>
       <div className="lowerContainer">
-        <Adslot type="horizontal" />
+        <AdslotHorizontal />
       </div>
       <style jsx>{`
       .titleContainer {
@@ -56,7 +57,7 @@ export default function Index() {
       .container {
         display: inline-block;
         position: relative;
-        height: 400px;
+        height: 80vh;
       }
       .leftContainer {
         width: 20%;

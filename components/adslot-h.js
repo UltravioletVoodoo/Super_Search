@@ -1,4 +1,4 @@
-export default function Adslot(props) {
+export default function AdslotHorizontal(props) {
     const { type } = props;
 
     return (
@@ -8,8 +8,8 @@ export default function Adslot(props) {
                 .superSearchAdslot {
                     position: absolute;
                     display: inline-block;
-                    width: ${type == "vertical" ? 100 : 320}px;
-                    height: ${type == "vertical" ? 400 : 100}px;
+                    width: 320px;
+                    height: 100px;
                     background-color: green;
                     left: 50%;
                     transform: translateX(-50%);

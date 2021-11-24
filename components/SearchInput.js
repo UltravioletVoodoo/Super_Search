@@ -142,57 +142,123 @@ export default function SearchInput(props) {
     return (
         <>
             <div className="inputContainer">
-                <div>
-                    <label htmlFor="noun">Nouns</label>
-                    <input type="checkbox" id="noun" value={searchObject.noun} onChange={handleNounChange}></input>
+                <div className="inputSetContainer textInputContainer">
+                    <div className="InputAligner">
+                        <div className="textInputContainer">
+                            <label className="inputText" htmlFor="startsWith">Starts with: </label>
+                            <input className="inputText inputTextBar" type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
+                        </div>
+                        <div className="textInputContainer">
+                            <label className="inputText" htmlFor="endsWith">Ends with: </label>
+                            <input className="inputText inputTextBar" type="text" id="endsWith" value={searchObject.endsWith} onChange={handleEndsWithChange}></input>
+                        </div>
+                        <div className="textInputContainer">
+                            <label className="inputText" htmlFor="rymesWith">Rymes with: </label>
+                            <input className="inputText inputTextBar" type="text" id="RymesWith" value={searchObject.rymesWith} onChange={handleRymesWithChange}></input>
+                        </div>
+                        <div className="textInputContainer">
+                            <label className="inputText" htmlFor="similarTo">Similar to: </label>
+                            <input className="inputText inputTextBar" type="text" id="similarTo" value={searchObject.similarTo} onChange={handleSimilarToChange}></input>
+                        </div>
+                        <div className="textInputContainer">
+                            <label className="inputText" htmlFor="numResults">Number of Results: </label>
+                            <input className="inputText inputTextBar" type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="verb">Verbs</label>
-                    <input type="checkbox" id="verb" value={searchObject.verb} onChange={handleVerbChange}></input>
+                <div className="inputSetContainer checkboxesContainer">
+                    <div className="InputAligner">
+                        <div className="checkboxContainer">
+                            <label className="inputText" htmlFor="noun">Nouns</label>
+                            <input className="checkbox" type="checkbox" id="noun" value={searchObject.noun} onChange={handleNounChange}></input>
+                        </div>
+                        <div className="checkboxContainer">
+                            <label className="inputText" htmlFor="verb">Verbs</label>
+                            <input className="checkbox" type="checkbox" id="verb" value={searchObject.verb} onChange={handleVerbChange}></input>
+                        </div>
+                        <div className="checkboxContainer">
+                            <label className="inputText" htmlFor="adjective">Adjectives</label>
+                            <input className="checkbox" type="checkbox" id="adjective" value={searchObject.adjective} onChange={handleAdjectiveChange}></input>
+                        </div>
+                        <div className="checkboxContainer">
+                            <label className="inputText" htmlFor="adverb">Adverbs</label>
+                            <input className="checkbox" type="checkbox" id="adverbs" value={searchObject.adverb} onChange={handleAdverbChange}></input>
+                        </div>
+                        <div className="checkboxContainer">
+                            <label className="inputText" htmlFor="syllable">Syllables: </label>
+                            <input className="checkbox" type="checkbox" id="useSyllables" value={searchObject.useSyllables} onChange={handleUseSyllablesChange}></input>
+                            {searchObject.useSyllables && (
+                                <input type="number" id="syllables" value={searchObject.syllables} onChange={handleSyllablesChange}></input>
+                            )}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="adjective">Adjectives</label>
-                    <input type="checkbox" id="adjective" value={searchObject.adjective} onChange={handleAdjectiveChange}></input>
+                <div className="searchContainer">
+                    <button className="searchButton" onClick={getSearchResults}>Search</button>
                 </div>
-                <div>
-                    <label htmlFor="adverb">Adverbs</label>
-                    <input type="checkbox" id="adverbs" value={searchObject.adverb} onChange={handleAdverbChange}></input>
-                </div>
-                <div>
-                    <label htmlFor="syllable">Syllables: </label>
-                    <input type="checkbox" id="useSyllables" value={searchObject.useSyllables} onChange={handleUseSyllablesChange}></input>
-                    {searchObject.useSyllables && (
-                        <input type="number" id="syllables" value={searchObject.syllables} onChange={handleSyllablesChange}></input>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="startsWith">Starts with: </label>
-                    <input type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
-                </div>
-                <div>
-                    <label htmlFor="endsWith">Ends with: </label>
-                    <input type="text" id="endsWith" value={searchObject.endsWith} onChange={handleEndsWithChange}></input>
-                </div>
-                <div>
-                    <label htmlFor="rymesWith">Rymes with: </label>
-                    <input type="text" id="RymesWith" value={searchObject.rymesWith} onChange={handleRymesWithChange}></input>
-                </div>
-                <div>
-                    <label htmlFor="similarTo">Similar to: </label>
-                    <input type="text" id="similarTo" value={searchObject.similarTo} onChange={handleSimilarToChange}></input>
-                </div>
-                <div>
-                    <label htmlFor="numResults">Number of Results: </label>
-                    <input type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
-                </div>
-                <button onClick={getSearchResults}>Search</button>
             </div>
             <style jsx>{`
                 .inputContainer {
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    background-color: #6e5808;
+                    background-color: #91b4eb;
+                }
+                .inputSetContainer {
+                    display: inline-block;
+                    position: relative;
+                    width: 49%;
+                    margin: 20px 0 20px 0;
+                }
+                .checkboxesContainer {
+                    left: 0;
+                }
+                .InputAligner {
+                    height: 100%;
+                    position: relative;
+                    width: max-content;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    text-align: right;
+                }
+                .textsContainer {
+                    right: 0;
+                }
+                .textInputContainer {
+                    margin-bottom: 10px;
+                }
+                .checkboxContainer {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+                .searchContainer {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+                .searchButton {
+                    width: 200px;
+                    height: 100px;
+                    font-weight: bold;
+                    background-color: blue;
+                    color: white;
+                    transition: 0.3s;
+                }
+                .searchButton:hover {
+                    background-color: lightblue;
+                }
+                .inputText {
+                    font-size: 16px;
+                    font-family: helvetica;
+                    font-weight: bold;
+                }
+                .inputTextBar {
+                    height: 20px;
+                }
+                .checkbox {
+                    height: 20px;
+                    width: 20px;
                 }
             `}</style>
         </>
