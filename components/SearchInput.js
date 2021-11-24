@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import arrayContains from '../util/arrayContains';
 import { phoneSize, tabletSize } from '../util/globalContants';
+import CheckboxCombo from './checkboxCombo';
 
 export default function SearchInput(props) {
     const { setter } = props;
@@ -167,30 +168,17 @@ export default function SearchInput(props) {
                     </div>
                 </div>
                 <div className="inputSetContainer checkboxesContainer">
-                    <div className="InputAligner">
-                        <div className="checkboxContainer">
-                            <label className="inputText" htmlFor="noun">Nouns:</label>
-                            <input className="checkbox" type="checkbox" id="noun" value={searchObject.noun} onChange={handleNounChange}></input>
-                        </div>
-                        <div className="checkboxContainer">
-                            <label className="inputText" htmlFor="verb">Verbs:</label>
-                            <input className="checkbox" type="checkbox" id="verb" value={searchObject.verb} onChange={handleVerbChange}></input>
-                        </div>
-                        <div className="checkboxContainer">
-                            <label className="inputText" htmlFor="adjective">Adjectives:</label>
-                            <input className="checkbox" type="checkbox" id="adjective" value={searchObject.adjective} onChange={handleAdjectiveChange}></input>
-                        </div>
-                        <div className="checkboxContainer">
-                            <label className="inputText" htmlFor="adverb">Adverbs:</label>
-                            <input className="checkbox" type="checkbox" id="adverbs" value={searchObject.adverb} onChange={handleAdverbChange}></input>
-                        </div>
-                        <div className="checkboxContainer">
-                            <label className="inputText" htmlFor="syllable">Syllables:</label>
-                            <input className="checkbox" type="checkbox" id="useSyllables" value={searchObject.useSyllables} onChange={handleUseSyllablesChange}></input>
-                            {searchObject.useSyllables && (
-                                <input type="number" id="syllables" value={searchObject.syllables} onChange={handleSyllablesChange}></input>
-                            )}
-                        </div>
+                    <div className="checkboxesInclude">INCLUDE:</div>
+                    <div className="checkboxSection">
+                        <CheckboxCombo inputId="noun" inputValue={searchObject.noun} inputOnChange={handleNounChange} labelText="Nouns" />
+                        <CheckboxCombo inputId="verb" inputValue={searchObject.verb} inputOnChange={handleVerbChange} labelText="Verbs" />
+                    </div>
+                    <div className="checkboxSection">
+                        <CheckboxCombo inputId="adjective" inputValue={searchObject.adjective} inputOnChange={handleAdjectiveChange} labelText="Adjectives" />
+                        <CheckboxCombo inputId="adverb" inputValue={searchObject.adverb} inputOnChange={handleAdverbChange} labelText="Adverbs" />
+                    </div>
+                    <div className="includeAllSection">
+                        <CheckboxCombo inputId="includeAll" inputValue={false} labelText="Include All" />
                     </div>
                 </div>
                 <div className="searchContainer">
@@ -211,8 +199,25 @@ export default function SearchInput(props) {
                     margin: 20px 0 20px 0;
                 }
                 .checkboxesContainer {
-                    left: 0;
+                    text-align: center;
                 }
+                .checkboxesInclude {
+                    font-size: 32px;
+                    font-family: helvetica;
+                    text-decoration: underline;
+                    margin-bottom: 10px;
+                }
+                .checkboxSection {
+                    width: max-content;;
+                    display: inline-block;
+                    text-align: left;
+                }
+                .includeAllSection {
+                    width: 100%;
+                    display: block;
+                    left-align: center;
+                }
+                
                 .InputAligner {
                     height: 100%;
                     position: relative;
@@ -248,17 +253,8 @@ export default function SearchInput(props) {
                 .searchButton:hover {
                     background-color: lightblue;
                 }
-                .inputText {
-                    font-size: 16px;
-                    font-family: helvetica;
-                    font-weight: bold;
-                }
                 .inputTextBar {
                     height: 20px;
-                }
-                .checkbox {
-                    height: 20px;
-                    width: 20px;
                 }
             `}</style>
         </>
