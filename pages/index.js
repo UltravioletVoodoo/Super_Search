@@ -57,7 +57,7 @@ export default function Index() {
       .container {
         display: inline-block;
         position: relative;
-        height: 80vh;
+        height: 300px;
       }
       .leftContainer {
         width: 20%;

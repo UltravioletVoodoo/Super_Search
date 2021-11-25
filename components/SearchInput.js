@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import arrayContains from '../util/arrayContains';
 import { phoneSize, tabletSize } from '../util/globalContants';
 import CheckboxCombo from './checkboxCombo';
+import TextFilterInput from './textFilterInput';
 
 export default function SearchInput(props) {
     const { setter } = props;
@@ -144,7 +145,7 @@ export default function SearchInput(props) {
         <>
             <div className="inputContainer">
                 <div className="inputSetContainer textInputContainer">
-                    <div className="InputAligner">
+                    {/* <div className="InputAligner">
                         <div className="textInputContainer">
                             <label className="inputText" htmlFor="startsWith">Starts with:</label>
                             <input className="inputText inputTextBar" type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
@@ -165,7 +166,15 @@ export default function SearchInput(props) {
                             <label className="inputText" htmlFor="numResults">Records:</label>
                             <input className="inputText inputTextBar" type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
                         </div>
-                    </div>
+                    </div> */}
+
+                    <TextFilterInput />
+                    <TextFilterInput />
+                    <TextFilterInput />
+                    <TextFilterInput />
+                    <TextFilterInput />
+                    <TextFilterInput />
+
                 </div>
                 <div className="inputSetContainer checkboxesContainer">
                     <div className="checkboxesInclude">INCLUDE:</div>
@@ -197,6 +206,7 @@ export default function SearchInput(props) {
                     position: relative;
                     width: 49%;
                     margin: 20px 0 20px 0;
+                    text-align: center;
                 }
                 .checkboxesContainer {
                     text-align: center;
@@ -217,7 +227,6 @@ export default function SearchInput(props) {
                     display: block;
                     left-align: center;
                 }
-                
                 .InputAligner {
                     height: 100%;
                     position: relative;
