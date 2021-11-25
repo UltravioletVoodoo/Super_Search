@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import arrayContains from '../util/arrayContains';
 import { phoneSize, tabletSize } from '../util/globalContants';
 import CheckboxCombo from './checkboxCombo';
+import SearchButton from './searchButton';
 import TextFilterInput from './textFilterInput';
 
 export default function SearchInput(props) {
@@ -144,39 +145,17 @@ export default function SearchInput(props) {
     return (
         <>
             <div className="inputContainer">
-                <div className="inputSetContainer textInputContainer">
-                    {/* <div className="InputAligner">
-                        <div className="textInputContainer">
-                            <label className="inputText" htmlFor="startsWith">Starts with:</label>
-                            <input className="inputText inputTextBar" type="text" id="startsWith" value={searchObject.startsWith} onChange={handleStartsWithChange}></input>
-                        </div>
-                        <div className="textInputContainer">
-                            <label className="inputText" htmlFor="endsWith">Ends with:</label>
-                            <input className="inputText inputTextBar" type="text" id="endsWith" value={searchObject.endsWith} onChange={handleEndsWithChange}></input>
-                        </div>
-                        <div className="textInputContainer">
-                            <label className="inputText" htmlFor="rymesWith">Rymes with:</label>
-                            <input className="inputText inputTextBar" type="text" id="RymesWith" value={searchObject.rymesWith} onChange={handleRymesWithChange}></input>
-                        </div>
-                        <div className="textInputContainer">
-                            <label className="inputText" htmlFor="similarTo">Similar to:</label>
-                            <input className="inputText inputTextBar" type="text" id="similarTo" value={searchObject.similarTo} onChange={handleSimilarToChange}></input>
-                        </div>
-                        <div className="textInputContainer">
-                            <label className="inputText" htmlFor="numResults">Records:</label>
-                            <input className="inputText inputTextBar" type="number" id="numResults" value={searchObject.numResults} onChange={handleNumResultsChange}></input>
-                        </div>
-                    </div> */}
-
-                    <TextFilterInput />
-                    <TextFilterInput />
-                    <TextFilterInput />
-                    <TextFilterInput />
-                    <TextFilterInput />
-                    <TextFilterInput />
-
+                <div className="inputSetContainer">
+                    <div className="textFilterInputContainer">
+                        <TextFilterInput labelText="Starts with" />
+                        <TextFilterInput labelText="Ends with" />
+                        <TextFilterInput labelText="Rymes with" />
+                        <TextFilterInput labelText="Similar to" />
+                        <TextFilterInput labelText="# of letters" />
+                        <TextFilterInput labelText="# of syllables" />
+                    </div>
                 </div>
-                <div className="inputSetContainer checkboxesContainer">
+                <div className="inputSetContainer">
                     <div className="checkboxesInclude">INCLUDE:</div>
                     <div className="checkboxSection">
                         <CheckboxCombo inputId="noun" inputValue={searchObject.noun} inputOnChange={handleNounChange} labelText="Nouns" />
@@ -190,9 +169,7 @@ export default function SearchInput(props) {
                         <CheckboxCombo inputId="includeAll" inputValue={false} labelText="Include All" />
                     </div>
                 </div>
-                <div className="searchContainer">
-                    <button className="searchButton" onClick={getSearchResults}>Search</button>
-                </div>
+                <SearchButton buttonOnClick={getSearchResults} />
             </div>
             <style jsx>{`
                 .inputContainer {
@@ -206,9 +183,7 @@ export default function SearchInput(props) {
                     position: relative;
                     width: 49%;
                     margin: 20px 0 20px 0;
-                    text-align: center;
-                }
-                .checkboxesContainer {
+                    vertical-align: top;
                     text-align: center;
                 }
                 .checkboxesInclude {
@@ -235,32 +210,15 @@ export default function SearchInput(props) {
                     transform: translateX(-50%);
                     text-align: right;
                 }
-                .textsContainer {
-                    right: 0;
-                }
-                .textInputContainer {
-                    margin-bottom: 10px;
+                .textFilterInputContainer {
+                    width: max-content;
+                    position: relative;
+                    left: 50%;
+                    transform: translateX(-50%);
                 }
                 .checkboxContainer {
                     width: 100%;
                     margin-bottom: 10px;
-                }
-                .searchContainer {
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    text-align: center;
-                }
-                .searchButton {
-                    width: 200px;
-                    height: 100px;
-                    font-weight: bold;
-                    background-color: blue;
-                    color: white;
-                    transition: 0.3s;
-                }
-                .searchButton:hover {
-                    background-color: lightblue;
                 }
                 .inputTextBar {
                     height: 20px;
