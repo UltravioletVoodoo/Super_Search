@@ -11,7 +11,7 @@ export default function TextFilterInput(props) {
             <style jsx>{`
                 .textFilterInput {
                     text-align: left;
-                    margin: 0 0 5px 0;
+                    margin: 0 0 10px 0;
                 }
                 .checkbox {
                     margin-right: 10px;
@@ -19,16 +19,24 @@ export default function TextFilterInput(props) {
                     width: 20px;
                     position: relative;
                     top: 4px;
+                    outline: 2px solid black;
+                }
+                .checkbox:focus {
+                    outline: 2px solid black;
                 }
                 .label {
                     margin-right: 10px;
                 }
                 .input {
                     width: 100px;
+                    outline: 2px solid black;
+                }
+                .input:focus {
+                    outline: 2px solid black;
                 }
                 .text {
-                    font-size: 16px;
-                    font-family: helvetica;
+                    font-size: 20px;
+                    font-family: cursive;
                     font-weight: bold;
                 }
             `}</style>

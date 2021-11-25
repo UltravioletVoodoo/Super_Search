@@ -9,7 +9,7 @@ export default function CheckboxCombo(props) {
             </div>
             <style jsx>{`
                 .checkboxCombo {
-                    margin: 0 5px 5px 5px;
+                    margin: 0 5px 20px 5px;
                 }
                 .checkbox {
                     height: 20px;
@@ -17,10 +17,15 @@ export default function CheckboxCombo(props) {
                     position: relative;
                     top: 4px;
                     margin-right: 5px;
+                    background-color: #1f8c8a;
+                    outline: 2px solid black;
+                }
+                .checkbox:focus {
+                    outline: 2px solid black;
                 }
                 .inputText {
-                    font-size: 16px;
-                    font-family: helvetica;
+                    font-size: 20px;
+                    font-family: cursive;
                     font-weight: bold;
                 }
             `}</style>

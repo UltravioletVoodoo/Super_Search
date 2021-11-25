@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import arrayContains from '../util/arrayContains';
-import { phoneSize, tabletSize } from '../util/globalContants';
 import CheckboxCombo from './checkboxCombo';
 import SearchButton from './searchButton';
 import TextFilterInput from './textFilterInput';
@@ -144,39 +143,55 @@ export default function SearchInput(props) {
 
     return (
         <>
-            <div className="inputContainer">
-                <div className="inputSetContainer">
-                    <div className="textFilterInputContainer">
-                        <TextFilterInput labelText="Starts with" />
-                        <TextFilterInput labelText="Ends with" />
-                        <TextFilterInput labelText="Rymes with" />
-                        <TextFilterInput labelText="Similar to" />
-                        <TextFilterInput labelText="# of letters" />
-                        <TextFilterInput labelText="# of syllables" />
+            <div className="mainArea">
+                <div className="inputContainer">
+                    <div className="inputSetContainer">
+                        <div className="textFilterInputContainer">
+                            <TextFilterInput labelText="Starts with" />
+                            <TextFilterInput labelText="Ends with" />
+                            <TextFilterInput labelText="Rymes with" />
+                            <TextFilterInput labelText="Similar to" />
+                            <TextFilterInput labelText="# of letters" />
+                            <TextFilterInput labelText="# of syllables" />
+                        </div>
                     </div>
-                </div>
-                <div className="inputSetContainer">
-                    <div className="checkboxesInclude">INCLUDE:</div>
-                    <div className="checkboxSection">
-                        <CheckboxCombo inputId="noun" inputValue={searchObject.noun} inputOnChange={handleNounChange} labelText="Nouns" />
-                        <CheckboxCombo inputId="verb" inputValue={searchObject.verb} inputOnChange={handleVerbChange} labelText="Verbs" />
-                    </div>
-                    <div className="checkboxSection">
-                        <CheckboxCombo inputId="adjective" inputValue={searchObject.adjective} inputOnChange={handleAdjectiveChange} labelText="Adjectives" />
-                        <CheckboxCombo inputId="adverb" inputValue={searchObject.adverb} inputOnChange={handleAdverbChange} labelText="Adverbs" />
-                    </div>
-                    <div className="includeAllSection">
-                        <CheckboxCombo inputId="includeAll" inputValue={false} labelText="Include All" />
+                    <div className="verticalLine"></div>
+                    <div className="inputSetContainer">
+                        <div className="checkboxesInclude">INCLUDE:</div>
+                        <div className="checkboxSection">
+                            <CheckboxCombo inputId="noun" inputValue={searchObject.noun} inputOnChange={handleNounChange} labelText="Nouns" />
+                            <CheckboxCombo inputId="verb" inputValue={searchObject.verb} inputOnChange={handleVerbChange} labelText="Verbs" />
+                        </div>
+                        <div className="checkboxSection">
+                            <CheckboxCombo inputId="adjective" inputValue={searchObject.adjective} inputOnChange={handleAdjectiveChange} labelText="Adjectives" />
+                            <CheckboxCombo inputId="adverb" inputValue={searchObject.adverb} inputOnChange={handleAdverbChange} labelText="Adverbs" />
+                        </div>
+                        <div className="includeAllSection">
+                            <CheckboxCombo inputId="includeAll" inputValue={false} labelText="Include All" />
+                        </div>
                     </div>
                 </div>
                 <SearchButton buttonOnClick={getSearchResults} />
             </div>
             <style jsx>{`
-                .inputContainer {
+                .mainArea {
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    background-color: #91b4eb;
+                    background-color: #e8a372;
+                    border: 2px solid black;
+                }
+                .inputContainer {
+                    display: block;
+                    position: relative;
+                    width: 90%;
+                    height: 65%;
+                    left: 50%;
+                    top: 50px;
+                    transform: translateX(-50%);
+                    background-color: #1f8c8a;
+                    border: 7px solid #094a49;
+                    border-radius: 5px;
                 }
                 .inputSetContainer {
                     display: inline-block;
@@ -186,16 +201,25 @@ export default function SearchInput(props) {
                     vertical-align: top;
                     text-align: center;
                 }
+                .verticalLine {
+                    position: absolute;
+                    width: 0;
+                    height: 90%;
+                    left: calc(50% + 2px);
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    border-left: 2px solid black;
+                }
                 .checkboxesInclude {
                     font-size: 32px;
-                    font-family: helvetica;
-                    text-decoration: underline;
+                    font-family: cursive;
                     margin-bottom: 10px;
                 }
                 .checkboxSection {
                     width: max-content;;
                     display: inline-block;
                     text-align: left;
+                    margin: 15px;
                 }
                 .includeAllSection {
                     width: 100%;

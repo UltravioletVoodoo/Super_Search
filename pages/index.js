@@ -2,9 +2,6 @@ import Base from '../components/base'
 import React, { useState } from 'react';
 import SearchInput from '../components/SearchInput';
 import SearchResults from '../components/SearchResults';
-import { phoneSize, tabletSize } from '../util/globalContants';
-import AdslotVertical from '../components/adslot-v';
-import AdslotHorizontal from '../components/adslot-h';
 
 export default function Index() {
 
@@ -16,33 +13,11 @@ export default function Index() {
       <div className="titleContainer">
         <h1 className="title">Super Search</h1>
       </div>
-      <div className="leftContainer container">
-        <AdslotVertical />
+      <div className="searchInputContainer">
+        <SearchInput setter={setSearchResults} />
       </div>
-      <div className="centerContainer container">
-        <div className="searchInputContainer">
-          <SearchInput setter={setSearchResults} />
-        </div>
-      </div>
-      <div className="rightContainer container">
-        <AdslotVertical />
-      </div>
-      <div className="lowerContainer">
-        <AdslotHorizontal />
-      </div>
-      <div className="leftContainer container">
-        <AdslotVertical />
-      </div>
-      <div className="centerContainer container">
-        <div className="searchResultsContainer">
-          <SearchResults searchResults={searchResults} />
-        </div>
-      </div>
-      <div className="rightContainer container">
-        <AdslotVertical />
-      </div>
-      <div className="lowerContainer">
-        <AdslotHorizontal />
+      <div className="searchResultsContainer">
+        <SearchResults searchResults={searchResults} />
       </div>
       <style jsx>{`
       .titleContainer {
@@ -50,54 +25,29 @@ export default function Index() {
         display: block;
         width: 100%;
         text-align: center;
+        margin-top: 80px;
       }
       .title {
-        font-size: 36px;
-      }
-      .container {
-        display: inline-block;
-        position: relative;
-        height: 350px;
-      }
-      .leftContainer {
-        width: 20%;
-        left: 0;
-      }
-      .centerContainer {
-        width: 60%;
-      }
-      .rightContainer {
-        width: 20%;
-        right: 0;
-      }
-      .lowerContainer {
-        position: relative;
-        display: block;
-        width: 100%;
-        height: 100px;
-        padding: 10px 0 10px 0;
+        font-size: 60px;
+        font-family: cursive;
+        font-weight: normal;
       }
       .searchInputContainer {
         display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
+        position: fixed;
+        width: 735px;
+        height: 450px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
       }
       .searchResultsContainer {
         display: block;
-        position: absolute;
-        width: 100%;
-      }
-      @media only screen and (max-width: ${phoneSize}px) {
-        .adslot_margin {
-          display: none;
-        }
-        .leftContainer, .rightContainer {
-          display: none;
-        }
-        .centerContainer {
-          width: 100%;
-        }
+        position: fixed;
+        width: 735px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 50%);
       }
       `}</style>
     </>
