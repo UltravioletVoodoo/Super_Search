@@ -12,31 +12,36 @@ export default function SearchInput(props) {
         verb: false,
         adjective: false,
         adverb: false,
+        useAll: false,
         useSyllables: false,
         syllables: 2,
+        useStartsWith: false,
         startsWith: "",
+        useEndsWith: false,
         endsWith: "",
+        useRymesWith: false,
         rymesWith: "",
+        useSimilarTo: false,
         similarTo: "",
     })
 
     function generateAPICall() {
         let result = 'https://api.datamuse.com/words?md=dsp&max=999';
-        if (searchObject.startsWith.length > 0) {
-            if (searchObject.endsWith.length > 0) {
+        if (searchObject.useStartsWith && searchObject.startsWith.length > 0) {
+            if (searchObject.useEndsWith && searchObject.endsWith.length > 0) {
                 result += `&sp=${searchObject.startsWith}*${searchObject.endsWith}`
             }
             result += `&sp=${searchObject.startsWith}*`
         } else {
-            if (searchObject.endsWith.length > 0) {
+            if (searchObject.useEndsWith && searchObject.endsWith.length > 0) {
                 result += `&sp=*${searchObject.endsWith}`
             }
         }
-        if (searchObject.rymesWith.length > 0) {
+        if (searchObject.useRymesWith && searchObject.rymesWith.length > 0) {
             // result += `&rel_rhy=${searchObject.rymesWith}&rel_nry=${searchObject.rymesWith}`
             result += `&rel_rhy=${searchObject.rymesWith}`
         }
-        if (searchObject.similarTo.length > 0) {
+        if (searchObject.useSimilarTo && searchObject.similarTo.length > 0) {
             result += `&ml=${searchObject.similarTo}`
         }
         return result;
@@ -49,7 +54,7 @@ export default function SearchInput(props) {
             if (!searchObject.verb && arrayContains(dataWord.tags, 'v')) continue;
             if (!searchObject.adjective && arrayContains(dataWord.tags, 'adj')) continue;
             if (!searchObject.adverb && arrayContains(dataWord.tags, 'adv')) continue;
-            if (searchObject.syllables != dataWord.numSyllables) continue;
+            if (searchObject.useSyllables && searchObject.syllables != dataWord.numSyllables) continue;
             strippedData.push(dataWord);
         }
         return strippedData;
@@ -71,27 +76,34 @@ export default function SearchInput(props) {
         request.send()
     }
 
-    function handleNounChange() {
+    function handleWordTypeCheckboxChange(newValue, checkboxKey) {
+        if (checkboxKey === "useAll") {
+            handleUseAll(newValue);
+            return;
+        }
+
+        if (!searchObject.useAll) { // if we are not using all, then it is safe to allow the others to change
+            let result = {... searchObject};
+            result[checkboxKey] = newValue;
+            setSearchObject(result);
+        }
+    }
+
+    function handleUseAll(newValue) {
         let result = {... searchObject};
-        result.noun = !result.noun;
+        result.useAll = newValue;
+        if (result.useAll) { // if we set useAll to true, then set all of the others to true aswell
+            result.noun = true;
+            result.verb = true;
+            result.adjective = true;
+            result.adverb = true;
+        }
         setSearchObject(result);
     }
 
-    function handleVerbChange() {
-        let result = {... searchObject};
-        result.verb = !result.verb;
-        setSearchObject(result);
-    }
-
-    function handleAdjectiveChange() {
-        let result = {... searchObject};
-        result.adjective = !result.adjective;
-        setSearchObject(result);
-    }
-
-    function handleAdverbChange() {
-        let result = {... searchObject};
-        result.adverb = !result.adverb;
+    function handleCheckboxChange(key) {
+        let result = { ... searchObject};
+        result[key] = !result[key];
         setSearchObject(result);
     }
 
@@ -125,33 +137,34 @@ export default function SearchInput(props) {
         setSearchObject(result);
     }
 
+
     return (
         <>
             <div className="mainArea">
                 <div className="inputContainer">
                     <div className="inputSetContainer">
                         <div className="textFilterInputContainer">
-                            <TextFilterInput labelText="Starts with" inputType="text" inputOnChange={handleStartsWithChange} inputValue={searchObject.startsWith} />
-                            <TextFilterInput labelText="Ends with" inputType="text" inputOnChange={handleEndsWithChange} inputValue={searchObject.endsWith} />
-                            <TextFilterInput labelText="Rymes with" inputType="text" inputOnChange={handleRymesWithChange} inputValue={searchObject.rymesWith} />
-                            <TextFilterInput labelText="Similar to" inputType="text" inputOnChange={handleSimilarToChange} inputValue={searchObject.similarTo} />
+                            <TextFilterInput labelText="Starts with" inputType="text" inputOnChange={handleStartsWithChange} inputValue={searchObject.startsWith} checkboxFunc={handleCheckboxChange} checkboxKey="useStartsWith" checkboxValue={searchObject.useStartsWith} />
+                            <TextFilterInput labelText="Ends with" inputType="text" inputOnChange={handleEndsWithChange} inputValue={searchObject.endsWith} checkboxFunc={handleCheckboxChange} checkboxKey="useEndsWith" checkboxValue={searchObject.useEndsWith} />
+                            <TextFilterInput labelText="Rymes with" inputType="text" inputOnChange={handleRymesWithChange} inputValue={searchObject.rymesWith} checkboxFunc={handleCheckboxChange} checkboxKey="useRymesWith" checkboxValue={searchObject.useRymesWith} />
+                            <TextFilterInput labelText="Similar to" inputType="text" inputOnChange={handleSimilarToChange} inputValue={searchObject.similarTo} checkboxFunc={handleCheckboxChange} checkboxKey="useSimilarTo" checkboxValue={searchObject.useSimilarTo} />
                             {/* <TextFilterInput labelText="# of letters" inputOnChange={handleNumLettersChange} inputValue={searchObject.numLetters} /> */}
-                            <TextFilterInput labelText="# of syllables" inputType="number" inputOnChange={handleSyllablesChange} inputValue={searchObject.syllables} />
+                            <TextFilterInput labelText="# of syllables" inputType="number" inputOnChange={handleSyllablesChange} inputValue={searchObject.syllables} checkboxFunc={handleCheckboxChange} checkboxKey="useSyllables" checkboxValue={searchObject.useSyllables} />
                         </div>
                     </div>
                     <div className="verticalLine"></div>
                     <div className="inputSetContainer">
                         <div className="checkboxesInclude">INCLUDE:</div>
                         <div className="checkboxSection">
-                            <CheckboxCombo inputId="noun" inputValue={searchObject.noun} inputOnChange={handleNounChange} labelText="Nouns" />
-                            <CheckboxCombo inputId="verb" inputValue={searchObject.verb} inputOnChange={handleVerbChange} labelText="Verbs" />
+                            <CheckboxCombo inputValue={searchObject.noun} inputOnChange={handleWordTypeCheckboxChange} checkboxKey="noun" labelText="Nouns" />
+                            <CheckboxCombo inputValue={searchObject.verb} inputOnChange={handleWordTypeCheckboxChange} checkboxKey="verb" labelText="Verbs" />
                         </div>
                         <div className="checkboxSection">
-                            <CheckboxCombo inputId="adjective" inputValue={searchObject.adjective} inputOnChange={handleAdjectiveChange} labelText="Adjectives" />
-                            <CheckboxCombo inputId="adverb" inputValue={searchObject.adverb} inputOnChange={handleAdverbChange} labelText="Adverbs" />
+                            <CheckboxCombo inputValue={searchObject.adjective} inputOnChange={handleWordTypeCheckboxChange} checkboxKey="adjective" labelText="Adjectives" />
+                            <CheckboxCombo inputValue={searchObject.adverb} inputOnChange={handleWordTypeCheckboxChange} checkboxKey="adverb" labelText="Adverbs" />
                         </div>
                         <div className="includeAllSection">
-                            <CheckboxCombo inputId="includeAll" inputValue={false} labelText="Include All" />
+                            <CheckboxCombo inputValue={searchObject.useAll} inputOnChange={handleWordTypeCheckboxChange} checkboxKey="useAll" labelText="Include All" />
                         </div>
                     </div>
                 </div>
