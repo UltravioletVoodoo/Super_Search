@@ -1,12 +1,33 @@
+import { useState } from "react";
+
 export default function TextFilterInput(props) {
-    const { labelText, inputOnChange, checkboxOnChange, inputValue, checkboxValue, inputType } = props;
+    const { labelText, inputOnChange, inputValue, inputType } = props;
+
+    const [ checkboxTicked, setCheckBoxTicked ] = useState(false);
+
+
+    function toggle() {
+        setCheckBoxTicked(!checkboxTicked);
+    }
+
+    function changeHandler(e) {
+        let newValue = inputType === "number" ? 1 : "";
+        if (checkboxTicked) {
+            if (inputType === "text") {
+                newValue = e.target.value ? e.target.value : "";
+            } else if (inputType === "number") {
+                newValue = e.target.value ? e.target.value : 1;
+            }
+        }
+        inputOnChange(newValue);
+    }
 
     return (
         <>
             <div className="textFilterInput">
-                <input className="checkbox" type="checkbox" onChange={checkboxOnChange} value={checkboxValue}></input>
+                <input className="checkbox" type="checkbox" onChange={toggle} value={checkboxTicked}></input>
                 <label className="label text">{labelText}</label>
-                <input className="input text" type="text" onChange={inputOnChange} value={inputValue} type={inputType}></input>
+                <input className="input text" type="text" onChange={changeHandler} value={inputValue} type={inputType}></input>
             </div>
             <style jsx>{`
                 .textFilterInput {

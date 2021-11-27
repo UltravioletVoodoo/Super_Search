@@ -101,27 +101,27 @@ export default function SearchInput(props) {
         setSearchObject(result);
     }
 
-    function handleStartsWithChange(e) {
+    function handleStartsWithChange(newValue) {
         let result = {... searchObject};
-        result.startsWith = e.target.value ? e.target.value : "";
+        result.startsWith = newValue;
         setSearchObject(result);
     }
 
-    function handleEndsWithChange(e) {
+    function handleEndsWithChange(newValue) {
         let result = {... searchObject};
-        result.endsWith = e.target.value ? e.target.value : "";
+        result.endsWith = newValue;
         setSearchObject(result);
     }
 
-    function handleRymesWithChange(e) {
+    function handleRymesWithChange(newValue) {
         let result = {... searchObject};
-        result.rymesWith = e.target.value ? e.target.value : "";
+        result.rymesWith = newValue;
         setSearchObject(result);
     }
 
-    function handleSimilarToChange(e) {
+    function handleSimilarToChange(newValue) {
         let result = {... searchObject};
-        result.similarTo = e.target.value ? e.target.value : "";
+        result.similarTo = newValue;
         setSearchObject(result);
     }
 
