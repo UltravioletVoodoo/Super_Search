@@ -1,12 +1,12 @@
 export default function TextFilterInput(props) {
-    const { labelText } = props;
+    const { labelText, inputOnChange, checkboxOnChange, inputValue, checkboxValue, inputType } = props;
 
     return (
         <>
             <div className="textFilterInput">
-                <input className="checkbox" type="checkbox"></input>
+                <input className="checkbox" type="checkbox" onChange={checkboxOnChange} value={checkboxValue}></input>
                 <label className="label text">{labelText}</label>
-                <input className="input text" type="text"></input>
+                <input className="input text" type="text" onChange={inputOnChange} value={inputValue} type={inputType}></input>
             </div>
             <style jsx>{`
                 .textFilterInput {

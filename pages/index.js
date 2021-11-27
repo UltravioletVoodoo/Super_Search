@@ -34,20 +34,18 @@ export default function Index() {
       }
       .searchInputContainer {
         display: block;
-        position: fixed;
+        position: relative;
         width: 735px;
         height: 450px;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
+        margin-bottom: 50px;
       }
       .searchResultsContainer {
         display: block;
-        position: fixed;
+        position: relative;
         width: 735px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, 50%);
+        left: calc((50vw - 16px) - 366px);
       }
       `}</style>
     </>

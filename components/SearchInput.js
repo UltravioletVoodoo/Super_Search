@@ -18,7 +18,6 @@ export default function SearchInput(props) {
         endsWith: "",
         rymesWith: "",
         similarTo: "",
-        numResults: 5
     })
 
     function generateAPICall() {
@@ -46,14 +45,11 @@ export default function SearchInput(props) {
     function stripData(dataWords) {
         let strippedData = [];
         for (let dataWord of dataWords) {
-            if (strippedData.length >= searchObject.numResults) break;
             if (!searchObject.noun && arrayContains(dataWord.tags, 'n')) continue;
             if (!searchObject.verb && arrayContains(dataWord.tags, 'v')) continue;
             if (!searchObject.adjective && arrayContains(dataWord.tags, 'adj')) continue;
             if (!searchObject.adverb && arrayContains(dataWord.tags, 'adv')) continue;
-            if (searchObject.useSyllables) {
-                if (searchObject.syllables != dataWord.numSyllables) continue;
-            }
+            if (searchObject.syllables != dataWord.numSyllables) continue;
             strippedData.push(dataWord);
         }
         return strippedData;
@@ -99,12 +95,6 @@ export default function SearchInput(props) {
         setSearchObject(result);
     }
 
-    function handleUseSyllablesChange() {
-        let result = {... searchObject};
-        result.useSyllables = !result.useSyllables;
-        setSearchObject(result);
-    }
-
     function handleSyllablesChange(e) {
         let result = {... searchObject};
         result.syllables = e.target.value ? e.target.value : 1
@@ -135,24 +125,18 @@ export default function SearchInput(props) {
         setSearchObject(result);
     }
 
-    function handleNumResultsChange(e) {
-        let result = {... searchObject};
-        result.numResults = e.target.value ? e.target.value : 1
-        setSearchObject(result);
-    }
-
     return (
         <>
             <div className="mainArea">
                 <div className="inputContainer">
                     <div className="inputSetContainer">
                         <div className="textFilterInputContainer">
-                            <TextFilterInput labelText="Starts with" />
-                            <TextFilterInput labelText="Ends with" />
-                            <TextFilterInput labelText="Rymes with" />
-                            <TextFilterInput labelText="Similar to" />
-                            <TextFilterInput labelText="# of letters" />
-                            <TextFilterInput labelText="# of syllables" />
+                            <TextFilterInput labelText="Starts with" inputType="text" inputOnChange={handleStartsWithChange} inputValue={searchObject.startsWith} />
+                            <TextFilterInput labelText="Ends with" inputType="text" inputOnChange={handleEndsWithChange} inputValue={searchObject.endsWith} />
+                            <TextFilterInput labelText="Rymes with" inputType="text" inputOnChange={handleRymesWithChange} inputValue={searchObject.rymesWith} />
+                            <TextFilterInput labelText="Similar to" inputType="text" inputOnChange={handleSimilarToChange} inputValue={searchObject.similarTo} />
+                            {/* <TextFilterInput labelText="# of letters" inputOnChange={handleNumLettersChange} inputValue={searchObject.numLetters} /> */}
+                            <TextFilterInput labelText="# of syllables" inputType="number" inputOnChange={handleSyllablesChange} inputValue={searchObject.syllables} />
                         </div>
                     </div>
                     <div className="verticalLine"></div>
