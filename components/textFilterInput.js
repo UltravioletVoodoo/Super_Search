@@ -23,7 +23,7 @@ export default function TextFilterInput(props) {
             <div className="textFilterInput">
                 <MyCheckbox value={checkboxValue} setter={checkboxOnChange} />
                 <label className="label text">{labelText}</label>
-                <input className="input text" type="text" onChange={changeHandler} value={inputValue} type={inputType}></input>
+                <input className="input text" onChange={changeHandler} value={inputValue} type={inputType}></input>
             </div>
             <style jsx>{`
                 .textFilterInput {
