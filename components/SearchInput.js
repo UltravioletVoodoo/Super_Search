@@ -67,7 +67,7 @@ export default function SearchInput(props) {
             // Begin accessing JSON data here
             const APIResponse = JSON.parse(request.response);
             if (APIResponse != null) {
-                setter(stripData(JSON.parse(request.response)));
+                setter(stripData(JSON.parse(request.response)).sort((a, b) => a.numSyllables - b.numSyllables));
             } else {
                 console.log("No data");
             }
@@ -177,6 +177,7 @@ export default function SearchInput(props) {
                     height: 100%;
                     background-color: #e8a372;
                     border: 2px solid black;
+                    border-radius: 10px;
                 }
                 .inputContainer {
                     display: block;

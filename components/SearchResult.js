@@ -64,16 +64,22 @@ export default function SearchResult(props) {
     }
 
     function getBackgroundColor() {
-        return "chartreuse";
+        if (word.defs) {
+            return "#1f8c8a";
+        }
+        return "#e8c46f";
     }
 
     function getBackgroundHoverColor() {
-        return "green";
+        return "#ffd573";
     }
 
     return (
         <>
             <div ref={wordRef} className="word" onClick={toggleModal}>{capitalize(word.word)}</div>
+            {modalOpen && (
+                <div className="modalClickMask" onClick={toggleModal}></div>
+            )}
             {modalOpen && (
                 <PointingModal 
                     modalText={parseDef(word.defs)}
@@ -86,7 +92,8 @@ export default function SearchResult(props) {
             <style jsx>{`
                 .word {
                     display: inline-block;
-                    border: 1px solid black;
+                    border: 2px solid black;
+                    font-weight: bold;
                     border-radius: 10px;
                     width: fit-content;
                     padding: 5px;
@@ -97,6 +104,17 @@ export default function SearchResult(props) {
                 }
                 .word:hover {
                     background-color: ${getBackgroundHoverColor()};
+                }
+                .modalClickMask {
+                    display: inline-block;
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background-color: black;
+                    opacity: 0.5;
+                    z-index: 100;
                 }
             `}</style>
         </>

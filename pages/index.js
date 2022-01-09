@@ -16,9 +16,17 @@ export default function Index() {
       <div className="searchInputContainer">
         <SearchInput setter={setSearchResults} />
       </div>
-      <div className="searchResultsContainer">
-        <SearchResults searchResults={searchResults} />
-      </div>
+      {searchResults.length > 0 && (
+        <div className="searchResultsContainer">
+          <SearchResults searchResults={searchResults} />
+        </div>
+      )}
+      {typeof(searchResults) !== 'string' && searchResults.length === 0 && (
+        <div className='searchResultsContainer'>
+          <h1>No results found...</h1>
+          <p>Try changing the search parameters above</p>
+        </div>
+      )}
       <style jsx>{`
       .titleContainer {
         position: relative;

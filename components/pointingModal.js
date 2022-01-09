@@ -62,15 +62,21 @@ export default function PointingModal(props) {
     
     return (
         <>
-            <div ref={modalRef} className="pointingModal" style={position.modal}>
-                <div className='modalHeader'>
-                    <h4>{props.title}</h4>
-                    <span className='closeBtn' onClick={closeModal}>x</span>
+            <div className="pointingModalContainer">
+                <div ref={modalRef} className="pointingModal" style={position.modal}>
+                    <div className='modalHeader'>
+                        <h4>{props.title}</h4>
+                        <span className='closeBtn' onClick={closeModal}>x</span>
+                    </div>
+                    <p className="modalText">{props.modalText}</p>
                 </div>
-                <p className="modalText">{props.modalText}</p>
+                <div className="modalArrow" style={position.arrow} />
             </div>
-            <div className="modalArrow" style={position.arrow} />
             <style jsx>{`
+                .pointingModalContainer {
+                    z-index: 101;
+                    display: inline-block;
+                }
                 .pointingModal {
                     position: fixed;
                     background-color: white;
