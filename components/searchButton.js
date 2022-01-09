@@ -26,6 +26,7 @@ export default function SearchButton(props) {
                     border: 2px solid black;
                     box-shadow: 0px 0px 0px 5px #faeaa5;
                     border-radius: 1px;
+                    cursor: pointer;
                 }
                 .button:hover {
                     background-color: #ffd573;

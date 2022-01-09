@@ -16,6 +16,7 @@ export default function MyCheckbox(props) {
                     margin-right: 5px;
                     outline: 2px solid black;
                     background-color: ${value ? "green" : "white"};
+                    cursor: pointer;
                 }
             `}</style>
         </>
